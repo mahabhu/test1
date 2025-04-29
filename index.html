@@ -18,6 +18,15 @@
       display: block;
       margin: 10px 0;
     }
+    .file-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    input[type="file"] {
+      width: auto;
+    }
     input {
       padding: 8px;
       width: 250px;
@@ -47,8 +56,13 @@
     <label for="dob">Date of Birth:</label>
     <input type="date" id="dob" required />
 
-    <label for="file">Upload a File:</label>
-    <input type="file" id="file" />
+    <label>Upload a File:</label>
+    <div class="file-row">
+      <input type="file" id="file" />
+      <a id="downloadLink" href="#" download style="display:none;">
+        <button type="button">Download</button>
+      </a>
+    </div>
 
     <button type="button" onclick="submitForm()">Submit</button>
   </form>
@@ -56,12 +70,26 @@
   <div id="output"></div>
 
   <script>
+    const fileInput = document.getElementById("file");
+    const downloadLink = document.getElementById("downloadLink");
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      if (file) {
+        const blobUrl = URL.createObjectURL(file);
+        downloadLink.href = blobUrl;
+        downloadLink.download = file.name;
+        downloadLink.style.display = "inline";
+      } else {
+        downloadLink.style.display = "none";
+      }
+    });
+
     function submitForm() {
       const name = document.getElementById("name").value;
       const phone = document.getElementById("phone").value;
       const email = document.getElementById("email").value;
       const dob = document.getElementById("dob").value;
-      const fileInput = document.getElementById("file");
       const file = fileInput.files[0];
 
       const fileInfo = file
