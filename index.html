@@ -47,6 +47,9 @@
     <label for="dob">Date of Birth:</label>
     <input type="date" id="dob" required />
 
+    <label for="file">Upload a File:</label>
+    <input type="file" id="file" />
+
     <button type="button" onclick="submitForm()">Submit</button>
   </form>
 
@@ -58,6 +61,12 @@
       const phone = document.getElementById("phone").value;
       const email = document.getElementById("email").value;
       const dob = document.getElementById("dob").value;
+      const fileInput = document.getElementById("file");
+      const file = fileInput.files[0];
+
+      const fileInfo = file
+        ? `<p><strong>Uploaded File:</strong> ${file.name} (${Math.round(file.size / 1024)} KB)</p>`
+        : "<p><strong>Uploaded File:</strong> None</p>";
 
       document.getElementById("output").innerHTML = `
         <h3>Submitted Information:</h3>
@@ -65,6 +74,7 @@
         <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Date of Birth:</strong> ${dob}</p>
+        ${fileInfo}
       `;
     }
   </script>
