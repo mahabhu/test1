@@ -2,30 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simple Input Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Info Form</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 100px;
+      margin-top: 50px;
     }
-    input, button {
-      padding: 10px;
+    form {
+      display: inline-block;
+      text-align: left;
+    }
+    label, input {
+      display: block;
+      margin: 10px 0;
+    }
+    input {
+      padding: 8px;
+      width: 250px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
       font-size: 1rem;
+    }
+    #output {
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Enter Your Name</h1>
-  <input type="text" id="nameInput" placeholder="Your name here" />
-  <button onclick="showName()">Submit</button>
-  <p id="output"></p>
+  <h1>User Information Form</h1>
+  <form id="userForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required />
+
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required />
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" required />
+
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <div id="output"></div>
 
   <script>
-    function showName() {
-      const name = document.getElementById("nameInput").value;
-      document.getElementById("output").textContent = `Hello, ${name}!`;
+    function submitForm() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+      const dob = document.getElementById("dob").value;
+
+      document.getElementById("output").innerHTML = `
+        <h3>Submitted Information:</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Date of Birth:</strong> ${dob}</p>
+      `;
     }
   </script>
 </body>
